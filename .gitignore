@@ -50,3 +50,6 @@ venv
 # Python
 *.pyc
 __pycache__/
+
+# Jetbrains
+.idea/

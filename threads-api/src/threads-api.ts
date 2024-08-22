@@ -1235,7 +1235,7 @@ export class ThreadsAPI {
     return likers;
   };
 
-  getTimeline = async (maxID: string = '', options?: AxiosRequestConfig): Promise<GetTimelineResponse> => {
+  getTimeline = async (pagination_source: 'text_post_feed_threads' | 'text_post_feed_following', maxID: string = '', options?: AxiosRequestConfig): Promise<GetTimelineResponse> => {
     if (!this.token && (!this.username || !this.password)) {
       throw new Error('Username or password not set');
     }
@@ -1248,7 +1248,7 @@ export class ThreadsAPI {
     try {
       const res = await this._requestQuery<GetTimelineResponse>(
         `${BASE_API_URL}/api/v1/feed/text_post_app_timeline/`,
-        { pagination_source: 'text_post_feed_threads', max_id: maxID || undefined },
+        { pagination_source, max_id: maxID || undefined },
         { ...options, headers: this._getAppHeaders() },
       );
       return res.data;
